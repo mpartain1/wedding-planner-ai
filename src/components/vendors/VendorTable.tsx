@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle, AlertCircle, Clock, Eye, MessageSquare, Mail, Send, Phone } from 'lucide-react';
+import { CheckCircle, AlertCircle, Clock, Eye, MessageSquare, Mail, Phone } from 'lucide-react';
 import type { DbVendor } from '../../types';
 import { useSendInitialOutreach } from '../../hooks/useAIEmail';
 import ConversationModal from './ConversationModal';
@@ -70,7 +70,6 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendors }) => {
               <th className="pb-3">Status</th>
               <th className="pb-3">Last Contact</th>
               <th className="pb-3">Email Conversation</th>
-              <th className="pb-3">Actions</th>
               <th className="pb-3">Notes</th>
             </tr>
           </thead>
@@ -113,33 +112,6 @@ const VendorTable: React.FC<VendorTableProps> = ({ vendors }) => {
                     <MessageSquare className="h-3 w-3" />
                     <span>View Chat</span>
                   </button>
-                </td>
-                
-                <td className="py-3">
-                  <div className="flex items-center space-x-2">
-                    {vendor.status === 'pending' && (
-                      <button
-                        onClick={() => handleSendInitialOutreach(vendor)}
-                        disabled={sendInitialOutreachMutation.isPending}
-                        className="flex items-center space-x-1 px-2 py-1 text-xs bg-green-100 text-green-700 rounded hover:bg-green-200 transition-colors disabled:opacity-50"
-                      >
-                        {sendInitialOutreachMutation.isPending ? (
-                          <div className="animate-spin rounded-full h-3 w-3 border-b border-green-700"></div>
-                        ) : (
-                          <Send className="h-3 w-3" />
-                        )}
-                        <span>Start Outreach</span>
-                      </button>
-                    )}
-                    
-                    <button
-                      onClick={() => handleViewConversation(vendor)}
-                      className="flex items-center space-x-1 px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
-                    >
-                      <Eye className="h-3 w-3" />
-                      <span>Details</span>
-                    </button>
-                  </div>
                 </td>
                 
                 <td className="py-3 text-gray-600 max-w-xs">

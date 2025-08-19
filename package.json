@@ -7,13 +7,17 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "db:migrate": "node database/run-migrations.js",
+    "db:seed": "node database/run-migrations.js && psql $VITE_SUPABASE_URL < database/seeds/001_sample_data.sql",
+    "db:status": "echo 'Check Supabase dashboard for current schema'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
     "@tailwindcss/vite": "^4.1.12",
     "@tanstack/react-query": "^5.85.3",
     "@tanstack/react-query-devtools": "^5.85.3",
+    "dotenv": "^17.2.1",
     "lucide-react": "^0.540.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

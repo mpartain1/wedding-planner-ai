@@ -57,6 +57,21 @@ const VendorManagement: React.FC<VendorManagementProps> = ({ categories }) => {
     }
   };
 
+  // Check if required fields are filled
+  const isFormValid = Boolean(
+    newVendorForm.categoryId && 
+    newVendorForm.name.trim() && 
+    newVendorForm.contactEmail.trim()
+  );
+
+  // Debug log to see if validation is working
+  console.log('Form validation:', {
+    categoryId: newVendorForm.categoryId,
+    name: newVendorForm.name.trim(),
+    contactEmail: newVendorForm.contactEmail.trim(),
+    isFormValid
+  });
+
   return (
     <div className="space-y-6">
       {/* Add New Vendor Form */}
@@ -114,11 +129,19 @@ const VendorManagement: React.FC<VendorManagementProps> = ({ categories }) => {
             
             <button
               onClick={handleAddVendor}
-              disabled={addVendorMutation.isPending}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
+              disabled={!isFormValid || addVendorMutation.isPending}
+              className={`px-4 py-2 rounded-lg transition-colors flex items-center justify-center space-x-2 ${
+                isFormValid && !addVendorMutation.isPending
+                  ? 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer'
+                  : 'bg-gray-300 text-gray-600 cursor-not-allowed'
+              }`}
+              style={{
+                backgroundColor: isFormValid && !addVendorMutation.isPending ? '#2563eb' : '#d1d5db',
+                color: isFormValid && !addVendorMutation.isPending ? 'white' : '#6b7280'
+              }}
             >
               {addVendorMutation.isPending ? (
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>
               ) : (
                 <Plus className="w-4 h-4" />
               )}
