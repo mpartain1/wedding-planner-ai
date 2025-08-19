@@ -19,7 +19,7 @@ export async function testDatabaseConnection() {
         contact_email: 'test@example.com',
         phone: '(555) 000-0000',
         price: 1000,
-        status: 'pending',
+        status: 'uncontacted',
         last_contact: new Date().toISOString().split('T')[0],
         notes: 'Test vendor - please delete',
       });

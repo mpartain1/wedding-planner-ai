@@ -13,7 +13,6 @@ interface NewVendorForm {
   name: string;
   contactEmail: string;
   phone: string;
-  estimatedPrice: string;
 }
 
 const VendorManagement: React.FC<VendorManagementProps> = ({ categories }) => {
@@ -21,8 +20,7 @@ const VendorManagement: React.FC<VendorManagementProps> = ({ categories }) => {
     categoryId: '', 
     name: '', 
     contactEmail: '', 
-    phone: '', 
-    estimatedPrice: '' 
+    phone: ''
   });
 
   const addVendorMutation = useAddVendor();
@@ -38,8 +36,8 @@ const VendorManagement: React.FC<VendorManagementProps> = ({ categories }) => {
         name: newVendorForm.name,
         contact_email: newVendorForm.contactEmail,
         phone: newVendorForm.phone || null,
-        price: parseInt(newVendorForm.estimatedPrice) || 0,
-        status: 'pending',
+        price: 0, // Default price to 0
+        status: 'uncontacted',
         last_contact: null,
         notes: 'Added manually - ready for AI outreach',
       });
@@ -49,8 +47,7 @@ const VendorManagement: React.FC<VendorManagementProps> = ({ categories }) => {
         categoryId: '', 
         name: '', 
         contactEmail: '', 
-        phone: '', 
-        estimatedPrice: '' 
+        phone: ''
       });
     } catch (error) {
       console.error('Failed to add vendor:', error);
@@ -64,14 +61,6 @@ const VendorManagement: React.FC<VendorManagementProps> = ({ categories }) => {
     newVendorForm.contactEmail.trim()
   );
 
-  // Debug log to see if validation is working
-  console.log('Form validation:', {
-    categoryId: newVendorForm.categoryId,
-    name: newVendorForm.name.trim(),
-    contactEmail: newVendorForm.contactEmail.trim(),
-    isFormValid
-  });
-
   return (
     <div className="space-y-6">
       {/* Add New Vendor Form */}
@@ -82,8 +71,9 @@ const VendorManagement: React.FC<VendorManagementProps> = ({ categories }) => {
             Add vendors to start automated outreach and negotiations
           </p>
         </div>
+        
         <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             <select 
               className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               value={newVendorForm.categoryId}
@@ -118,14 +108,6 @@ const VendorManagement: React.FC<VendorManagementProps> = ({ categories }) => {
               value={newVendorForm.phone}
               onChange={(e) => setNewVendorForm({...newVendorForm, phone: e.target.value})}
             />
-
-            <input
-              type="number"
-              placeholder="Est. Price"
-              className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={newVendorForm.estimatedPrice}
-              onChange={(e) => setNewVendorForm({...newVendorForm, estimatedPrice: e.target.value})}
-            />
             
             <button
               onClick={handleAddVendor}
@@ -135,10 +117,6 @@ const VendorManagement: React.FC<VendorManagementProps> = ({ categories }) => {
                   ? 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer'
                   : 'bg-gray-300 text-gray-600 cursor-not-allowed'
               }`}
-              style={{
-                backgroundColor: isFormValid && !addVendorMutation.isPending ? '#2563eb' : '#d1d5db',
-                color: isFormValid && !addVendorMutation.isPending ? 'white' : '#6b7280'
-              }}
             >
               {addVendorMutation.isPending ? (
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>

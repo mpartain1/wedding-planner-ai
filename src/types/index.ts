@@ -6,7 +6,7 @@ export interface DbVendor {
     contact_email: string;
     phone: string | null;
     price: number;
-    status: 'confirmed' | 'negotiating' | 'interested' | 'pending' | 'declined';
+    status: 'uncontacted' | 'negotiating' | 'interested' | 'declined' | 'confirmed';
     last_contact: string | null;
     notes: string | null;
     created_at: string;
@@ -17,6 +17,7 @@ export interface DbVendor {
     id: string;
     name: string;
     budget: number;
+    notes: string | null;
     selected_vendor_id: string | null;
     created_at: string;
     updated_at: string;
@@ -53,7 +54,7 @@ export interface DbVendor {
     contact: string;
     phone: string;
     price: number;
-    status: 'confirmed' | 'negotiating' | 'interested' | 'pending' | 'declined';
+    status: 'confirmed' | 'negotiating' | 'interested' | 'uncontacted' | 'declined';
     lastContact: string;
     notes: string;
   }

@@ -43,7 +43,7 @@ export type Database = {
           contact_email: string;
           phone: string | null;
           price: number;
-          status: 'confirmed' | 'negotiating' | 'interested' | 'pending' | 'declined';
+          status: 'confirmed' | 'negotiating' | 'interested' | 'uncontacted' | 'declined';
           last_contact: string | null;
           notes: string | null;
           created_at: string;
@@ -56,7 +56,7 @@ export type Database = {
           contact_email: string;
           phone?: string | null;
           price?: number;
-          status?: 'confirmed' | 'negotiating' | 'interested' | 'pending' | 'declined';
+          status?: 'confirmed' | 'negotiating' | 'interested' | 'uncontacted' | 'declined';
           last_contact?: string | null;
           notes?: string | null;
           created_at?: string;
@@ -69,7 +69,7 @@ export type Database = {
           contact_email?: string;
           phone?: string | null;
           price?: number;
-          status?: 'confirmed' | 'negotiating' | 'interested' | 'pending' | 'declined';
+          status?: 'confirmed' | 'negotiating' | 'interested' | 'uncontacted' | 'declined';
           last_contact?: string | null;
           notes?: string | null;
           created_at?: string;
